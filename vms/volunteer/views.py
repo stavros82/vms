@@ -8,8 +8,8 @@ from braces.views import LoginRequiredMixin
 from django.conf import settings
 # from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.core.servers.basehttp import FileWrapper
-from django.core.urlresolvers import reverse, reverse_lazy
+from wsgiref.util  import FileWrapper
+from django.urls import reverse, reverse_lazy
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
@@ -41,7 +41,7 @@ def download_resume(request, volunteer_id):
             basename = get_volunteer_resume_file_url(volunteer_id)
             if basename:
                 filename = settings.MEDIA_ROOT + basename
-                wrapper = FileWrapper(file(filename))
+                wrapper = FileWrapper(filename)
                 response = HttpResponse(wrapper)
                 response['Content-Disposition'] = 'attachment; filename=%s' % os.path.basename(filename)
                 response['Content-Length'] = os.path.getsize(filename)

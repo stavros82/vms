@@ -3,7 +3,7 @@ Django settings for vms project.
 
 Note: Currently development settings. Not suitable as is for production.
 """
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -11,7 +11,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+SECRET_KEY ='_9@_o4s(*=qz5i&i@6f_!jg#1o4ptqwz#s4d#s%(j*i^juq!%('
 
 # SECURITY WARNING: run with debug turned off (DEBUG = False) in production!
 DEBUG = True
@@ -19,7 +19,7 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
-
+ROOT_URLCONF = 'vms.urls'
 # Application definition
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'pom',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,29 +60,35 @@ WSGI_APPLICATION = 'vms.wsgi.application'
 # Change these database settings if your database engine, database name,
 # username or password changes
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'vms',
-        'USER': 'vmsadmin',
-        'PASSWORD': '0xdeadbeef',
-        'HOST': 'localhost',
+      'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'vms.db'),
     }
 }
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages")
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+      
+]
+
 # Internationalization
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = False
 
 USE_L10N = True
 

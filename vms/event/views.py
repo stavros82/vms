@@ -7,8 +7,8 @@ from braces.views import LoginRequiredMixin
 # Django
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse
+from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -23,6 +23,7 @@ from event.services import check_edit_event, get_event_by_id, get_events_by_date
 from job.services import get_jobs_by_event_id
 from volunteer.utils import vol_id_check
 from vms.utils import check_correct_volunteer_shift_sign_up
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class AdministratorLoginRequiredMixin(object):

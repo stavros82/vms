@@ -1,13 +1,12 @@
 # Django
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 # local Django
 from volunteer import views
 from volunteer.views import VolunteerUpdateView, ProfileView, GenerateReportView
-
-urlpatterns = patterns(
-    '',
-    url(r'^delete_resume/(?P<volunteer_id>\d+)$',
+app_name='volunteer'
+urlpatterns = [
+   url(r'^delete_resume/(?P<volunteer_id>\d+)$',
         views.delete_resume,
         name='delete_resume'),
     url(r'^download_resume/(?P<volunteer_id>\d+)$',
@@ -23,4 +22,4 @@ urlpatterns = patterns(
         GenerateReportView.as_view(),
         name='report'),
     url(r'^search/$', views.search, name='search'),
-)
+]
