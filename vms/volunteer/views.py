@@ -41,8 +41,11 @@ def download_resume(request, volunteer_id):
             basename = get_volunteer_resume_file_url(volunteer_id)
             if basename:
                 filename = settings.MEDIA_ROOT + basename
-                wrapper = FileWrapper(filename)
-                response = HttpResponse(wrapper)
+                print(settings.MEDIA_ROOT)
+                print(basename)
+                print(filename)
+               # wrapper = FileWrapper(filename)
+                response = HttpResponse(content_type='application/force-download')
                 response['Content-Disposition'] = 'attachment; filename=%s' % os.path.basename(filename)
                 response['Content-Length'] = os.path.getsize(filename)
                 return response
